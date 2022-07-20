@@ -1,34 +1,43 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title></title>
+        <title>Media Library</title>
         <link rel="stylesheet" href="index.css">
         <script src="index.js" type="module"></script>
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-SXYF6HQ17R"></script>
     </head>
     <body>
-        <header></header>
-        <main>
-            <section>
+        <header>
+            <figure>
                 <img>
-                <audio></audio>
-                <video></video>
-            </section>
-            <section>
-                <form>
-                    <label for="link">Paste in a Link</label>
-                    <input type="text" id="link" name="link" placeholder="https://">
-                    <input type="submit" value="submit">
-                </form>
-                <form>
-                    <label for="myfile" target="">Select a file:</label>
-                    <input type="file" id="files" name="files">
-                    <input type="submit" value="submit">
-                </form>
-            </section>     
+                <audio controls></audio>
+                <video controls></video>
+            </figure>
+            <aside>
+                <input type="url">
+                <button>Copy</button>
+            </aside>
+        </header>
+        <main>
+            <fieldset>
+                <legend><h2>Media Library</h2></legend>
+                <nav></nav>
+            </fieldset>   
         </main>
         <footer>
-            <small> Siliconwat &copy; 2022</small>
+            <fieldset>
+                <legend><h2>Upload</h2></legend>
+                <form>
+                    <button>Paste</button>
+                    <input type="url" name="link" placeholder="https://">
+                    <button>Add</button>
+                </form>
+                <br><hr><br>
+                <form enctype="multipart/form-data">
+                    <input type="file" accept="image/*, audio/*, video/*">
+                </form>
+            </fieldset>
+            <h6>Silicon Wat LLC &copy; 2022</h6>
         </footer>
     </body>
 </html>
