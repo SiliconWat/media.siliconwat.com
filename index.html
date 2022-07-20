@@ -14,13 +14,14 @@
                 <video controls></video>
             </figure>
             <aside>
-                <input type="url">
-                <button>Copy</button>
+                <input id="url1" type="url">
+                <button onclick="copyUrl()">Copy</button>
             </aside>
         </header>
         <main>
             <fieldset>
                 <legend><h2>Media Library</h2></legend>
+                <button onclick="getLibrary()">Refresh</button>
                 <nav></nav>
             </fieldset>   
         </main>
@@ -28,9 +29,9 @@
             <fieldset>
                 <legend><h2>Upload</h2></legend>
                 <form>
-                    <button>Paste</button>
-                    <input type="url" name="link" placeholder="https://">
-                    <button>Add</button>
+                    <button type="button" onclick="pasteUrl()">Paste</button>
+                    <input id="url2" type="url" name="link" placeholder="https://">
+                    <button type="submit">Add</button>
                 </form>
                 <br><hr><br>
                 <form enctype="multipart/form-data">

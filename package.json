@@ -1,0 +1,31 @@
+{
+  "name": "media.siliconwat.com",
+  "version": "1.0.0",
+  "description": "Media Library",
+  "main": "index.mjs",
+  "nodemonConfig": {
+    "ignore": [
+      "media/*"
+    ]
+  },
+  "scripts": {
+    "start": "sudo nodemon index.mjs",
+    "renew": "sudo certbot --manual --preferred-challenges dns certonly -d dns.siliconwat.com",
+    "copy1": "sudo cp /etc/letsencrypt/live/dns.siliconwat.com/fullchain.pem /Users/heartbank/Desktop/HeartBank®/Silicon\\ Wat\\ LLC/dApps/siliconwat.com/media.siliconwat.com",
+    "copy2": "sudo cp /etc/letsencrypt/live/dns.siliconwat.com/privkey.pem /Users/heartbank/Desktop/HeartBank®/Silicon\\ Wat\\ LLC/dApps/siliconwat.com/media.siliconwat.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SiliconWat/media.siliconwat.com.git"
+  },
+  "author": "THonly™",
+  "license": "HeartBank®",
+  "bugs": {
+    "url": "https://github.com/SiliconWat/media.siliconwat.com/issues"
+  },
+  "homepage": "https://github.com/SiliconWat/media.siliconwat.com#readme",
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1"
+  }
+}
