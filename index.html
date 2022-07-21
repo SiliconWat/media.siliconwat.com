@@ -28,14 +28,14 @@
         <footer>
             <fieldset>
                 <legend><h2>Upload</h2></legend>
-                <form>
+                <form onsubmit="addMediaViaUrl(event)">
                     <button type="button" onclick="pasteUrl()">Paste</button>
-                    <input id="url2" type="url" name="link" placeholder="https://">
+                    <input id="url2" type="url" name="url" placeholder="https://" required>
                     <button type="submit">Add</button>
                 </form>
                 <br><hr><br>
-                <form enctype="multipart/form-data">
-                    <input type="file" accept="image/*, audio/*, video/*">
+                <form enctype="multipart/form-data" onsubmit="addMediaViaUpload(event)">
+                    <input type="file" accept="image/*, audio/*, video/*" onchange="this.form.submit()">
                 </form>
             </fieldset>
             <h6>Silicon Wat LLC &copy; 2022</h6>

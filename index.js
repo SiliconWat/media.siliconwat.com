@@ -1,4 +1,4 @@
-import renderLibrary from './library.mjs';
+import renderLibrary, { setSelection } from './library.mjs';
 
 window.onload = () => {
     renderLibrary();
@@ -16,20 +16,23 @@ window.pasteUrl = async () => {
 }
 
 window.getLibrary = async () => {
-    const library = await fetch('https://dns.siliconwat.com:528/');
-    localStorage.setItem('library', JSON.stringify(await library.json()));
+    const response = await fetch('https://dns.siliconwat.com:528/');
+    const data = await response.json();
+    localStorage.setItem('library', JSON.stringify(data.library));
     document.location.reload();
 }
 
-window.addMusic = async event => {
+window.addMediaViaUrl = async event => {
     event.preventDefault();
-    const library = await fetch('https://dns.thonly.net:432/', {
+    const response = await fetch('https://dns.siliconwat.com:528/', {
         method: 'POST', 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(Object.fromEntries(new FormData(event.target)))
-    });    
-    localStorage.setItem('library', JSON.stringify(await library.json()));
-    document.location.reload();
+    });
+    const data = await response.json();
+    localStorage.setItem('library', JSON.stringify(data.library));
+    setSelection(data.selection);
+    //document.location.reload();
 }
 
 window.dataLayer = window.dataLayer || [];

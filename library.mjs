@@ -6,8 +6,10 @@ const categories = ['Images', 'Sounds', 'Videos'];
 
 export default () => {
     const library = JSON.parse(localStorage.getItem('library'));
-    setSelection(localStorage.getItem('selection') ? JSON.parse(localStorage.getItem('selection')) : library[categories[0]][0]);
-    renderLibrary(library);
+    if (library) {
+        setSelection(localStorage.getItem('selection') ? JSON.parse(localStorage.getItem('selection')) : library[categories[0]][0]);
+        renderLibrary(library);
+    }
 }
 
 function renderLibrary(library) {
@@ -28,7 +30,7 @@ function renderLibrary(library) {
     });
 }
 
-function setSelection(file) {
+export function setSelection(file) {
     localStorage.setItem('selection', JSON.stringify(file));
     image.style.display = 'none';
     audio.style.display = 'none';
