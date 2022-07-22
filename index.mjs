@@ -28,7 +28,7 @@ app.post('/', async (req, res) => {
         const file = await fetch(req.body.url);
         console.log(file)
         const category = categories[file.headers.get('content-type').split('/')[0]];
-        const id = crypto.randomUUID();
+        const id = file.headers.get('etag'); // crypto.randomUUID();
         const folder = `media/${category}/${id}`;
         const name = decodeURIComponent(req.body.url.split('/').at(-1));
         if (!fs.existsSync(folder)) fs.mkdirSync(folder, { recursive: true });
