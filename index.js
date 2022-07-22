@@ -32,7 +32,19 @@ window.addMediaViaUrl = async event => {
     const data = await response.json();
     localStorage.setItem('library', JSON.stringify(data.library));
     setSelection(data.selection);
-    //document.location.reload();
+    document.location.reload();
+}
+
+window.addMediaViaUpload = async event => {
+    event.preventDefault();
+    const response = await fetch('https://dns.siliconwat.com:528/', {
+        method: 'POST', 
+        body: new FormData(event.target)
+    });
+    const data = await response.json();
+    localStorage.setItem('library', JSON.stringify(data.library));
+    setSelection(data.selection);
+    document.location.reload();
 }
 
 window.dataLayer = window.dataLayer || [];

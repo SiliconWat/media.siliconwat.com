@@ -7,14 +7,16 @@ export function getMedia(Category=null, id=null) {
         let folders = true;
         while (folders) {
             const folder = categoryFolder.readSync();
-            if (folder && folder.isDirectory()) {
-                const fileFolder = fs.opendirSync(`media/${category}/${folder.name}`);
-                const file = fileFolder.readSync();
-                if (file.name !== '.DS_Store') library[category].push(getData(fileFolder.path, file.name));
-                fileFolder.close();
+            if (folder) {
+                if (folder.isDirectory()) {
+                    const fileFolder = fs.opendirSync(`media/${category}/${folder.name}`);
+                    const file = fileFolder.readSync();
+                    if (file.name !== '.DS_Store') library[category].push(getData(fileFolder.path, file.name));
+                    fileFolder.close();
+                }
             } else folders = false;
         } 
-        categoryFolder.close(); 
+        categoryFolder.close();
     }
     return { library, selection: id ? library[Category].find(file => file.id === id) : null };
 }
@@ -28,4 +30,4 @@ function getData(path, name) {
     return data;
 }
 
- console.log(getMedia())
+// console.log(getMedia())

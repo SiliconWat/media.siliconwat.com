@@ -34,8 +34,8 @@
                     <button type="submit">Add</button>
                 </form>
                 <br><hr><br>
-                <form enctype="multipart/form-data" onsubmit="addMediaViaUpload(event)">
-                    <input type="file" accept="image/*, audio/*, video/*" onchange="this.form.submit()">
+                <form onsubmit="addMediaViaUpload(event)">
+                    <input type="file" name="media" multiple accept="image/*, audio/*, video/*" onchange="this.form.dispatchEvent(new Event('submit'))">
                 </form>
             </fieldset>
             <h6>Silicon Wat LLC &copy; 2022</h6>
