@@ -26,6 +26,7 @@ app.post('/', async (req, res) => {
     const categories = { image: "Images", audio: "Sounds", video: "Videos" };
     if (req.body.url) {
         const file = await fetch(req.body.url);
+        console.log(file)
         const category = categories[file.headers.get('content-type').split('/')[0]];
         const id = crypto.randomUUID();
         const folder = `media/${category}/${id}`;
