@@ -26,7 +26,7 @@ app.post('/', async (req, res) => {
     const categories = { image: "Images", audio: "Sounds", video: "Videos" };
     if (req.body.url) {
         const file = await fetch(req.body.url);
-        console.log(file)
+        //console.log(file)
         const category = categories[file.headers.get('content-type').split('/')[0]];
         const id = file.headers.get('etag'); // crypto.randomUUID();
         const folder = `media/${category}/${id}`;
@@ -58,3 +58,5 @@ https.createServer({cert, key}, app).listen(528);
 
 // https://coverr.co/
 // sudo chmod -R 777 .
+// github file size limit: 100MB // recommended is 50MB
+// git lfs track "*.mp4"
