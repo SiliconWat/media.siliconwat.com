@@ -22,6 +22,11 @@ app.get('/', (req, res) => {
     res.json(getMedia());
 });
 
+// TODO
+// github file size limit: 100MB // recommended is 50MB
+// git lfs track "*.mp4" // costs money
+// https://coverr.co/
+// sudo chmod -R 777 .
 app.post('/', async (req, res) => {
     const categories = { image: "Images", audio: "Sounds", video: "Videos" };
     if (req.body.url) {
@@ -55,8 +60,3 @@ app.delete('/', (req, res) => {
 });
 
 https.createServer({cert, key}, app).listen(528);
-
-// https://coverr.co/
-// sudo chmod -R 777 .
-// github file size limit: 100MB // recommended is 50MB
-// git lfs track "*.mp4"
