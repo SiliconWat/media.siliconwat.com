@@ -26,7 +26,6 @@ app.get('/', (req, res) => {
 // github file size limit: 100MB // recommended is 50MB
 // git lfs track "*.mp4" // costs money
 // https://coverr.co/
-// sudo chmod -R 777 .
 app.post('/', async (req, res) => {
     const categories = { image: "Images", audio: "Sounds", video: "Videos" };
     if (req.body.url) {
