@@ -6,38 +6,15 @@
         <script src="index.js" type="module"></script>
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-SXYF6HQ17R"></script>
     </head>
-    <body>
+    <body is="sw-body">
         <header>
-            <figure>
-                <img>
-                <audio controls></audio>
-                <video controls></video>
-            </figure>
-            <aside>
-                <input id="url1" type="url">
-                <button onclick="copyUrl()">Copy</button>
-            </aside>
+            <sw-media></sw-media>
         </header>
         <main>
-            <fieldset>
-                <legend><h2>Media Library</h2></legend>
-                <button onclick="getLibrary()">Refresh</button>
-                <nav></nav>
-            </fieldset>   
+            <sw-library></sw-library>
         </main>
         <footer>
-            <fieldset>
-                <legend><h2>Upload</h2></legend>
-                <form onsubmit="addMediaViaUrl(event)">
-                    <button type="button" onclick="pasteUrl()">Paste</button>
-                    <input id="url2" type="url" name="url" placeholder="https://" required>
-                    <button type="submit">Add</button>
-                </form>
-                <br><hr><br>
-                <form onsubmit="addMediaViaUpload(event)">
-                    <input type="file" name="media" multiple accept="image/*, audio/*, video/*" onchange="this.form.dispatchEvent(new Event('submit'))">
-                </form>
-            </fieldset>
+            <sw-upload></sw-upload>
             <h6>Silicon Wat LLC &copy; 2022</h6>
         </footer>
     </body>

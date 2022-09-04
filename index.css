@@ -2,29 +2,3 @@ body {
     margin: 0;
     padding: 20px;
 }
-
-header, h6 {
-    text-align: center;
-}
-
-img, audio, video {
-    width: 100%;
-    display: none;
-}
-
-menu {
-    padding: 0;
-    margin: 0;
-}
-
-menu:first-of-type {
-    list-style-type: "\1f4f7";;
-}
-
-menu:nth-of-type(2) {
-    list-style-type: "\1f4fc";;
-}
-
-menu:last-of-type {
-    list-style-type: "\1f4f9";;
-}
