@@ -3,7 +3,7 @@ import https from 'https';
 import express from 'express';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
-import upload, { getMedia } from './media.mjs';
+import { getMedia, upload, remove } from './media.mjs';
 
 // expires on 2022-10-18
 const cert = fs.readFileSync('private/fullchain.pem');
@@ -24,7 +24,7 @@ app.post('/', async (req, res) => {
 });
 
 app.delete('/', (req, res) => {
-    // todo later 
+    remove(req, res);
 });
 
 https.createServer({cert, key}, app).listen(528);

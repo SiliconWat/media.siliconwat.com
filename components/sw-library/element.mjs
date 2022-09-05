@@ -22,6 +22,15 @@ class SwLibrary extends HTMLElement {
         //document.location.reload();
     }
 
+    async #remove(path) {
+        const response = await fetch('https://dns.siliconwat.com:528/', {
+            method: "DELETE",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ path })
+        });
+        this.dispatchEvent(new CustomEvent("sw-library", { bubbles: true, composed: true, detail: { action: "delete", data: await response.json(), path }}));
+    }
+
     render(library) {
         const nav = this.shadowRoot.querySelector('nav');
         nav.replaceChildren();
@@ -34,9 +43,14 @@ class SwLibrary extends HTMLElement {
     
             library[category].sort(this.#orderByName).forEach(media => {
                 const li = document.createElement('li');
-                li.append(" ", media.name);
-                li.onclick = () => this.dispatchEvent(new CustomEvent("sw-library", { bubbles: true, composed: true, detail: { action: "selection", selection: media }}));
+                const span = document.createElement('span');
+                const button = document.createElement('button');
+                span.append(" ", media.name);
+                span.onclick = () => this.dispatchEvent(new CustomEvent("sw-library", { bubbles: true, composed: true, detail: { action: "selection", selection: media }}));
+                button.append("Delete");
+                button.onclick = () => this.#remove(media.path);
                 menu.append(li);
+                li.append(span, button);
             });
         });
     }

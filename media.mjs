@@ -2,12 +2,11 @@ import fs from 'fs';
 import crypto from 'crypto';
 import fetch from 'node-fetch';
 import git from './github.mjs';
-// TODO
 // github file size limit: 100MB // recommended is 50MB
 // git lfs track "*.mp4" // costs money
 // https://coverr.co/
 
-export default async function (req, res) {
+export async function upload(req, res) {
     const categories = { image: "Images", audio: "Sounds", video: "Videos" };
     if (req.body.url) {
         const file = await fetch(req.body.url);
@@ -35,7 +34,12 @@ export default async function (req, res) {
     }
 }
 
-//TODO: display redundant files within same hash folder // OR delete old one
+//#FIXME: delete empty folder?
+export function remove(req, res) {
+    fs.unlinkSync(req.body.path);
+    res.json(getMedia());
+}
+
 export function getMedia(Category=null, id=null) {
     const library = { Images: [], Sounds: [], Videos: [] };
     for (const category in library) {
@@ -46,8 +50,13 @@ export function getMedia(Category=null, id=null) {
             if (folder) {
                 if (folder.isDirectory()) {
                     const fileFolder = fs.opendirSync(`media/${category}/${folder.name}`);
-                    const file = fileFolder.readSync();
-                    if (file.name !== '.DS_Store') library[category].push(getData(fileFolder.path, file.name));
+                    let files = true;
+                    while (files) {
+                        const file = fileFolder.readSync();
+                        if (file) {
+                            if (file.name !== '.DS_Store') library[category].push(getData(fileFolder.path, file.name));
+                        } else files = false;
+                    }
                     fileFolder.close();
                 }
             } else folders = false;

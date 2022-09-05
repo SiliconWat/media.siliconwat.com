@@ -44,14 +44,8 @@ class SwMedia extends HTMLElement {
     }
 
     async copyUrl() {
-        await navigator.clipboard.writeText(this.url.value);
-        this.url.focus();
-    }
-
-    download(a) {
-        const media = JSON.parse(localStorage.getItem('selection'));
-        this.parentElement.download = media.name;
-        this.parentElement.href = media.path;
+        await navigator.clipboard.writeText(this.#url.value);
+        this.#url.focus();
     }
 }
 

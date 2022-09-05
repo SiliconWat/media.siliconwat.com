@@ -23,7 +23,11 @@ class SwBody extends HTMLBodyElement {
                 this.#refreshLibrary();
                 break;
             case "selection":
-                this.#setSelection(detail.selection)
+                this.#setSelection(detail.selection);
+                break;
+            case "delete":
+                detail.data.selection = JSON.parse(localStorage.getItem('selection')).path === detail.path ? data.library.Images[0] : null;
+                this.#updateLibrary(detail.data);
                 break;
         }
     }
@@ -46,7 +50,7 @@ class SwBody extends HTMLBodyElement {
     #updateLibrary(data) {
         localStorage.setItem('library', JSON.stringify(data.library));
         this.#libraryElement.render(data.library);
-        this.#setSelection(data.selection);
+        if (data.selection) this.#setSelection(data.selection);
         //document.location.reload();
     }
 
