@@ -26,7 +26,7 @@ class SwBody extends HTMLBodyElement {
                 this.#setSelection(detail.selection);
                 break;
             case "delete":
-                detail.data.selection = JSON.parse(localStorage.getItem('selection')).path === detail.path ? data.library.Images[0] : null;
+                detail.data.selection = JSON.parse(localStorage.getItem('selection')).path === detail.path ? detail.data.library.Images[0] : null;
                 this.#updateLibrary(detail.data);
                 break;
         }
