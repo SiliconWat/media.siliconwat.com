@@ -3,7 +3,7 @@ import https from 'https';
 import express from 'express';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
-import { getMedia, upload, remove } from './media.mjs';
+import { getMedia, download, upload, remove } from './media.mjs';
 
 // expires on 2022-10-18
 const cert = fs.readFileSync('private/fullchain.pem');
@@ -19,8 +19,12 @@ app.get('/', (req, res) => {
     res.json(getMedia());
 });
 
-app.post('/', async (req, res) => {
-    await upload(req, res);
+app.post('/', (req, res) => {
+    upload(req, res);
+});
+
+app.put('/', async (req, res) => {
+    await download(req, res);
 });
 
 app.delete('/', (req, res) => {

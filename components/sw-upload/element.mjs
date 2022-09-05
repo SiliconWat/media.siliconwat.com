@@ -14,7 +14,7 @@ class SwUpload extends HTMLElement {
     async addMediaViaUrl(event) {
         event.preventDefault();
         const response = await fetch('https://dns.siliconwat.com:528/', {
-            method: 'POST', 
+            method: 'PUT', 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(Object.fromEntries(new FormData(event.target)))
         });

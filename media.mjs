@@ -6,8 +6,9 @@ import git from './github.mjs';
 // git lfs track "*.mp4" // costs money
 // https://coverr.co/
 
-export async function upload(req, res) {
-    const categories = { image: "Images", audio: "Sounds", video: "Videos" };
+const categories = { image: "Images", audio: "Sounds", video: "Videos" };
+
+export async function download(req, res) {
     if (req.body.url) {
         const file = await fetch(req.body.url);
         //console.log(file)
@@ -17,7 +18,11 @@ export async function upload(req, res) {
         const name = decodeURIComponent(req.body.url.split('/').at(-1));
         if (!fs.existsSync(folder)) fs.mkdirSync(folder, { recursive: true });
         file.body.pipe(fs.createWriteStream(`${folder}/${name}`, { mode: 0o777 }).on('finish', () => git(category, name))).on('close', () => res.json(getMedia(category, id)));
-    } else if (req.files) {
+    } else res.status(400).json({ error: "Bad Request" });
+}
+
+export function upload(req, res) {
+    if (req.files) {
         let category, id, name;
         const media = Array.isArray(req.files.media) ? req.files.media : [ req.files.media ];
         media.forEach(file => {
@@ -29,12 +34,10 @@ export async function upload(req, res) {
         });
         res.json(getMedia(category, id))
         git(category, name);
-    } else {
-        res.status(400).json({ error: "Bad Request" });
-    }
+    } else res.status(400).json({ error: "Bad Request" });
 }
 
-//#FIXME: delete empty folder?
+//#FIXME: delete empty folder? maybe keep to see what has been deleted...
 export function remove(req, res) {
     fs.unlinkSync(req.body.path);
     res.json(getMedia());
