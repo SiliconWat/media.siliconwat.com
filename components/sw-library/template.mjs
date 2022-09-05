@@ -4,7 +4,7 @@ template.innerHTML = `
     <link rel="stylesheet" href="components/sw-library/shadow.css">
     <fieldset>
         <legend><h2>Media Library</h2></legend>
-        <button onclick="getLibrary()">Refresh</button>
+        <button onclick="this.getRootNode().host.refresh()">Refresh</button>
         <nav></nav>
     </fieldset>   
 `;

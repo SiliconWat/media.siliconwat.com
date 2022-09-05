@@ -59,3 +59,7 @@ app.delete('/', (req, res) => {
 });
 
 https.createServer({cert, key}, app).listen(528);
+
+Array.prototype.at = function(pos) {
+    return pos >= 0 ? this[pos] : this[this.length + pos];
+};

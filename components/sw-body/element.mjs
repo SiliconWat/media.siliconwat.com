@@ -1,57 +1,76 @@
 class SwBody extends HTMLBodyElement {
+    #url;
+    #image;
+    #audio;
+    #video;
+    #libraryElement;
+
     constructor() {
         super();
-        
+        this.#libraryElement = this.querySelector('sw-library');
+
+        const mediaElement = this.querySelector('sw-media');
+        this.#url = mediaElement.url;
+        this.#image = mediaElement.image;
+        this.#audio = mediaElement.audio;
+        this.#video = mediaElement.video;
     }
 
-    import renderLibrary, { setSelection } from './library.mjs';
+    async connectedCallback() {
+        const library = this.#getLibrary() || await this.#refreshLibrary();
+        const selection = localStorage.getItem('selection') ? JSON.parse(localStorage.getItem('selection')) : library.Images[0];
+        this.#setSelection(selection);
 
-window.onload = () => {
-    renderLibrary();
-}
+        this.addEventListener('sw-upload', event => this.#updateLibrary(event.detail.data));
+        this.addEventListener('sw-library', event => this.#setSelection(event.detail.selection));
+    }
 
-window.copyUrl = async () => {
-    const url = document.getElementById('url1');
-    await navigator.clipboard.writeText(url.value);
-    url.focus();
-}
+    #getLibrary() {
+        if (localStorage.getItem('library')) {
+            const library = JSON.parse(localStorage.getItem('library'));
+            this.#libraryElement.render(library);
+            return library;
+        } return null;
+    }
 
-window.pasteUrl = async () => {
-    const url = document.getElementById('url2');
-    url.value = await navigator.clipboard.readText();
-}
+    async #refreshLibrary() {
+        const library = await this.#libraryElement.refresh();
+        localStorage.setItem('library', JSON.stringify(library));
+        return library;
+        //document.location.reload();
+    }
 
-window.getLibrary = async () => {
-    const response = await fetch('https://dns.siliconwat.com:528/');
-    const data = await response.json();
-    localStorage.setItem('library', JSON.stringify(data.library));
-    document.location.reload();
-}
+    #updateLibrary(data) {
+        localStorage.setItem('library', JSON.stringify(data.library));
+        this.#setSelection(data.selection);
+        this.#libraryElement.render(data.library);
+        //document.location.reload();
+    }
 
-window.addMediaViaUrl = async event => {
-    event.preventDefault();
-    const response = await fetch('https://dns.siliconwat.com:528/', {
-        method: 'POST', 
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.fromEntries(new FormData(event.target)))
-    });
-    const data = await response.json();
-    localStorage.setItem('library', JSON.stringify(data.library));
-    setSelection(data.selection);
-    document.location.reload();
-}
+    #setSelection(media) {
+        localStorage.setItem('selection', JSON.stringify(media));
+        this.#image.style.display = 'none';
+        this.#audio.style.display = 'none';
+        this.#video.style.display = 'none';
+        this.#url.value = media.url;
+    
+        switch (media.category) {
+            case "Images": 
+                this.#image.src = media.path;
+                this.#image.style.display = 'block';
+                break;
+            case "Sounds":
+                this.#audio.src = media.path;
+                this.#audio.style.display = 'block';
+                break;
+            case "Videos":
+                this.#video.src = media.path;
+                this.#video.style.display = 'block';
+                break;
+        }
 
-window.addMediaViaUpload = async event => {
-    event.preventDefault();
-    const response = await fetch('https://dns.siliconwat.com:528/', {
-        method: 'POST', 
-        body: new FormData(event.target)
-    });
-    const data = await response.json();
-    localStorage.setItem('library', JSON.stringify(data.library));
-    setSelection(data.selection);
-    document.location.reload();
-}
+        this.scrollIntoView({ behavior: "smooth", block: "start", inline: "center" });
+    }
 }
 
 customElements.define("sw-body", SwBody, { extends: "body" });

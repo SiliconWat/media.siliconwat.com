@@ -8,8 +8,8 @@ template.innerHTML = `
         <video controls></video>
     </figure>
     <aside>
-        <input id="url1" type="url">
-        <button onclick="copyUrl()">Copy</button>
+        <input type="url">
+        <button onclick="this.getRootNode().host.copyUrl()">Copy</button>
     </aside>
 `;
 
