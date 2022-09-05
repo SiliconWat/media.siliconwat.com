@@ -42,8 +42,8 @@ class SwBody extends HTMLBodyElement {
 
     #updateLibrary(data) {
         localStorage.setItem('library', JSON.stringify(data.library));
-        this.#setSelection(data.selection);
         this.#libraryElement.render(data.library);
+        this.#setSelection(data.selection);
         //document.location.reload();
     }
 
