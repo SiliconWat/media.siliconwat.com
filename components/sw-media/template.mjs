@@ -10,7 +10,7 @@ template.innerHTML = `
     <aside>
         <input type="url">
         <button onclick="this.getRootNode().host.copyUrl()">Copy</button>
-        <a onclick="this.getRootNode().host.download()">Download</a>
+        <a>Download</a>
     </aside>
 `;
 

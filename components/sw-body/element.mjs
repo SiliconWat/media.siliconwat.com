@@ -1,19 +1,11 @@
 class SwBody extends HTMLBodyElement {
-    #url;
-    #image;
-    #audio;
-    #video;
+    #mediaElement;
     #libraryElement;
 
     constructor() {
         super();
-        this.#libraryElement = this.querySelector('sw-library');
-
-        const mediaElement = this.querySelector('sw-media');
-        this.#url = mediaElement.url;
-        this.#image = mediaElement.image;
-        this.#audio = mediaElement.audio;
-        this.#video = mediaElement.video;
+        this.#mediaElement = this.querySelector('sw-media');
+        this.#libraryElement = this.querySelector('sw-library');   
     }
 
     async connectedCallback() {
@@ -60,26 +52,7 @@ class SwBody extends HTMLBodyElement {
 
     #setSelection(media) {
         localStorage.setItem('selection', JSON.stringify(media));
-        this.#image.style.display = 'none';
-        this.#audio.style.display = 'none';
-        this.#video.style.display = 'none';
-        this.#url.value = media.url;
-    
-        switch (media.category) {
-            case "Images": 
-                this.#image.src = media.path;
-                this.#image.style.display = 'block';
-                break;
-            case "Sounds":
-                this.#audio.src = media.path;
-                this.#audio.style.display = 'block';
-                break;
-            case "Videos":
-                this.#video.src = media.path;
-                this.#video.style.display = 'block';
-                break;
-        }
-
+        this.#mediaElement.update(media);
         this.scrollIntoView({ behavior: "smooth", block: "start", inline: "center" });
     }
 }
