@@ -21,6 +21,13 @@ class SwMedia extends HTMLElement {
         await navigator.clipboard.writeText(this.url.value);
         this.url.focus();
     }
+
+    download(this) {
+        const media = JSON.parse(localStorage.getItem('selection'));
+        this.parentElement.download = media.name;
+        this.parentElement.href = media.path;
+        
+    }
 }
 
 customElements.define("sw-media", SwMedia);

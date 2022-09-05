@@ -22,7 +22,18 @@ class SwBody extends HTMLBodyElement {
         this.#setSelection(selection);
 
         this.addEventListener('sw-upload', event => this.#updateLibrary(event.detail.data));
-        this.addEventListener('sw-library', event => this.#setSelection(event.detail.selection));
+        this.addEventListener('sw-library', event => this.#handleLibrary(event.detail));
+    }
+
+    #handleLibrary(detail) {
+        switch(detail.action) {
+            case "refresh":
+                this.#refreshLibrary();
+                break;
+            case "selection":
+                this.#setSelection(detail.selection)
+                break;
+        }
     }
 
     #getLibrary() {

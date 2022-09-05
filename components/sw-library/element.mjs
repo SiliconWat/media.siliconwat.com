@@ -10,6 +10,10 @@ class SwLibrary extends HTMLElement {
         this.shadowRoot.appendChild(template.content.cloneNode(true));
     }
 
+    emitRefresh() {
+        this.dispatchEvent(new CustomEvent("sw-library", { bubbles: true, composed: true, detail: { action: "refresh" }}));
+    }
+
     async refresh() {
         const response = await fetch('https://dns.siliconwat.com:528/');
         const data = await response.json();
@@ -31,7 +35,7 @@ class SwLibrary extends HTMLElement {
             library[category].sort(this.#orderByName).forEach(media => {
                 const li = document.createElement('li');
                 li.append(" ", media.name);
-                li.onclick = () => this.dispatchEvent(new CustomEvent("sw-library", { bubbles: true, composed: true, detail: { selection: media }}));
+                li.onclick = () => this.dispatchEvent(new CustomEvent("sw-library", { bubbles: true, composed: true, detail: { action: "selection", selection: media }}));
                 menu.append(li);
             });
         });
