@@ -69,7 +69,7 @@ class SwBody extends HTMLBodyElement {
                 break;
         }
 
-        this.parentElement.scrollIntoView({ behavior: "smooth", block: "start", inline: "center" });
+        this.scrollIntoView({ behavior: "smooth", block: "start", inline: "center" });
     }
 }
 
