@@ -12,8 +12,8 @@
     "start": "sudo nodemon index.mjs",
     "admin": "sudo chmod -R 777 .",
     "renew": "sudo certbot --manual --preferred-challenges dns certonly -d dns.siliconwat.com",
-    "copy1": "sudo cp /etc/letsencrypt/live/dns.siliconwat.com/fullchain.pem /Users/heartbank/Desktop/HeartBank®/Silicon\\ Wat\\ LLC/dApps/siliconwat.com/media.siliconwat.com",
-    "copy2": "sudo cp /etc/letsencrypt/live/dns.siliconwat.com/privkey.pem /Users/heartbank/Desktop/HeartBank®/Silicon\\ Wat\\ LLC/dApps/siliconwat.com/media.siliconwat.com"
+    "copy1": "sudo cp /etc/letsencrypt/live/dns.siliconwat.com/fullchain.pem /Users/heartbank/Desktop/HeartBank®/Silicon\\ Wat\\ LLC/dApps/siliconwat.com/media.siliconwat.com/private",
+    "copy2": "sudo cp /etc/letsencrypt/live/dns.siliconwat.com/privkey.pem /Users/heartbank/Desktop/HeartBank®/Silicon\\ Wat\\ LLC/dApps/siliconwat.com/media.siliconwat.com/private"
   },
   "repository": {
     "type": "git",

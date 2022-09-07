@@ -39,8 +39,10 @@ export function upload(req, res) {
 
 //#FIXME: delete empty folder? maybe keep to see what has been deleted...
 export function remove(req, res) {
-    fs.unlinkSync(req.body.path);
-    res.json(getMedia());
+    if (req.socket.remoteAddress === "::ffff:192.168.1.254") {
+        fs.unlinkSync(req.body.path);
+        res.json(getMedia());
+    } else res.status(403).json({ error: "Forbidden" }); //401: Unauthorized, 402: Payment Required
 }
 
 export function getMedia(Category=null, id=null) {

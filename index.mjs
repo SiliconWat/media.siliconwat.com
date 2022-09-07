@@ -16,6 +16,7 @@ app.use(express.json());
 app.use(fileUpload({ debug: false, uploadTimeout: 60000, useTempFiles: true, tempFileDir: 'media/temp', createParentPath: true, uriDecodeFileNames: true, safeFileNames: true, preserveExtension: true }));
 
 app.get('/', (req, res) => {
+    //console.log(req.socket.remoteAddress)
     res.json(getMedia());
 });
 
